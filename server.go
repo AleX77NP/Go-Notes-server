@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
-	"github.com/aleksandarmilanovic/fb-training/db"
 	"github.com/aleksandarmilanovic/fb-training/controllers"
+	"github.com/aleksandarmilanovic/fb-training/db"
 	"github.com/aleksandarmilanovic/fb-training/models"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/driver/sqlite"
@@ -47,5 +48,10 @@ func main() {
 
 	setUpRoutes(app)
 
-	log.Fatal(app.Listen(":8080"))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	log.Fatal(app.Listen(":"+port))
 }
